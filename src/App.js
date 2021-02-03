@@ -1,25 +1,32 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [lyricsItem, setLyricsItem] = useState(null);
+
+  const lyricsFunction = async () => {
+    try {
+      await axios
+      .get('https://api.lyrics.ovh/v1/Coldplay/yellow')
+      .then(res => {
+        console.log(res);
+        return setLyricsItem(res.data.lyrics);
+      })
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    lyricsFunction();
+  })
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+
     </div>
-  );
+  )
 }
 
 export default App;
